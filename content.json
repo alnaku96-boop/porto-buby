@@ -15,9 +15,7 @@
       "program": "Informatics (Faculty of Industrial Technology)"
     },
     "photo": "/images/profile.jpg",
-    "photoNote": "TODO: add a high-resolution profile photo at public/images/profile.jpg",
-    "cv": "/cv/Silfi-Ardila-Putri-CV.pdf",
-    "cvNote": "TODO: add the latest CV (PDF, max 1 MB) at public/cv/Silfi-Ardila-Putri-CV.pdf"
+    "cv": "/cv/Silfi-Ardila-Putri-CV.pdf"
   },
   "contact": {
     "email": "silfiardila96@gmail.com",
@@ -83,6 +81,7 @@
         "Verified frontend slicing implementations against product requirements to ensure correct UI behavior",
         "Collaborated with developers and product teams in Agile workflows, including daily stand-up meetings"
       ],
+      "certificate": "/certificates/mepo-qa-engineer-intern-certificate.pdf",
       "pointsSource": "CV (public/cv/Silfi-Ardila-Putri-CV.pdf), copied verbatim; first 3 are shown, the rest behind 'Show all'"
     },
     {
@@ -125,7 +124,8 @@
         "Quality assurance"
       ],
       "evidence": [
-        "experience:mepo-qa-engineer"
+        "experience:mepo-qa-engineer",
+        "certificate:mepo-qa-intern"
       ]
     },
     {
@@ -176,6 +176,15 @@
       "issued": "2026-10",
       "credentialId": null,
       "file": "/certificates/mepo-product-manager-intern-certificate.pdf"
+    },
+    {
+      "id": "mepo-qa-intern",
+      "group": "Technical",
+      "title": "Certificate of Internship – Quality Assurance Engineer Intern",
+      "issuer": "Mepo (PT. Multi Kreasi Travel Indo)",
+      "issued": "2026-03",
+      "credentialId": null,
+      "file": "/certificates/mepo-qa-engineer-intern-certificate.pdf"
     },
     {
       "id": "dibimbing-ba-product-strategy",
