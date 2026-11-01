@@ -1,11 +1,11 @@
 ---
-title: "From QA Engineer to Product Manager Intern at Mepo"
+title: "Product Manager Intern at Mepo"
 summary: "How three months of testing a travel platform shaped the way I define, prioritize, and validate product work, and led to a Best Award at the end of the PM internship."
 role: Product Manager Intern
 company: Mepo Indonesia
 period: Mar 2026 – Oct 2026
 status: ready
-tags: ["QA → PM", "Requirements & PRD", "Best Award"]
+tags: ["Requirements & PRD", "Best Award"]
 ---
 
 <!--
