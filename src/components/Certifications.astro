@@ -1,0 +1,44 @@
+---
+import { certificates, formatMonth } from '../lib/content';
+import Icon from './Icon.astro';
+
+const GROUPS = ['Product', 'AI', 'Technical'] as const;
+const ICONS: Record<string, string> = { Product: 'target', AI: 'spark', Technical: 'code' };
+const filters = [['All', certificates.length], ...GROUPS.map((g) => [g, certificates.filter((c) => c.group === g).length])].filter(([, n]) => n);
+---
+<section id="certifications" class="band" aria-labelledby="certs-title">
+  <div class="container-page certs">
+    <h2 id="certs-title" class="section-title" data-reveal>Certifications</h2>
+    <!-- R7 filter without JS: radios + :has() in global.css -->
+    <fieldset class="mt-6 flex flex-wrap gap-2" data-reveal>
+      <legend class="sr-only">Filter certificates</legend>
+      {filters.map(([g, n], i) => (
+        <label class="filter-chip">
+          <input type="radio" name="cert-filter" value={g} class="sr-only" checked={i === 0} />
+          {g} <span class="text-mute">{n}</span>
+        </label>
+      ))}
+    </fieldset>
+    <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {certificates.map((c, i) => (
+        <li class="card flex flex-col" data-group={c.group} style={`--i: ${i % 3}`} data-reveal>
+          <div class="flex items-center gap-3">
+            <span class="icon-tile"><Icon name={ICONS[c.group]} size={18} /></span>
+            <span class="eyebrow !text-xs">{c.group}</span>
+          </div>
+          <h3 class="mt-4 text-lg font-semibold leading-snug">{c.title}</h3>
+          <p class="mt-1 text-sm text-body">{c.issuer}</p>
+          <p class="mt-1 font-mono text-[12px] text-mute">
+            <time datetime={c.issued}>{formatMonth(c.issued)}</time>
+            {c.credentialId && <> · ID {c.credentialId}</>}
+          </p>
+          {c.file && (
+            <a href={c.file} target="_blank" rel="noopener" class="link mt-auto inline-flex items-center gap-1.5 pt-4 text-sm font-semibold">
+              <Icon name="file" size={14} /> View PDF<span class="sr-only">: {c.title}</span>
+            </a>
+          )}
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

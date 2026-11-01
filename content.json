@@ -6,7 +6,6 @@
   "profile": {
     "name": "Silfi Ardila Putri",
     "role": "Product Manager",
-    "roleNote": "Open question: 'Product Manager' or 'Junior Product Manager' (LinkedIn headline uses 'Junior Product Manager'). Confirm before release.",
     "headline": "Junior Product Manager | PM Intern @ Mepo (Best Award) | Product Strategy · Product Discovery · Requirements & PRD · Business Analysis · Data-Driven (SQL) · AI/LLM Tools | Informatics @ Universitas Gunadarma",
     "valueProposition": "Product Manager with a QA and engineering foundation, turning user problems into clear, measurable product solutions.",
     "location": "Depok, West Java, Indonesia",
@@ -43,6 +42,39 @@
     "At Mepo (March – October 2026), I defined product requirements, translated user needs into clear specifications, and drove feature development through cross-functional collaboration with engineering and stakeholders, always with a user-centric approach to improving the experience.",
     "What I enjoy most about product management is the full loop: understanding who the users are, defining the problem worth solving, prioritizing what to build, and measuring whether it actually worked."
   ],
+  "howIWork": {
+    "source": "Stages map to the assessment areas on the Mepo PM and QA internship certificates; anchors point to sections of content/case-study-mepo.md",
+    "steps": [
+      {
+        "title": "Discover",
+        "icon": "search",
+        "text": "Start from the user and the evidence: user needs, product discovery, and what testing and defect reports already reveal about where the product breaks.",
+        "evidence": "Product Discovery & User Research · Bug Reporting",
+        "anchor": "research--insight"
+      },
+      {
+        "title": "Define",
+        "icon": "doc",
+        "text": "Turn needs into PRDs, user stories, and acceptance criteria precise enough that an engineer can build them and a tester can check them.",
+        "evidence": "PRD, User Story & Acceptance Criteria · Test Case Design",
+        "anchor": "problem"
+      },
+      {
+        "title": "Prioritize",
+        "icon": "layers",
+        "text": "Order the backlog by user and business value, keep it in Jira, and plan the work with engineering inside an Agile/Scrum cycle.",
+        "evidence": "Prioritization & Requirement Analysis · Jira & Backlog Management",
+        "anchor": "decisions--prioritization"
+      },
+      {
+        "title": "Validate",
+        "icon": "check",
+        "text": "Before release, check that what shipped matches what was specified, through product testing, regression checks, and UAT against business requirements.",
+        "evidence": "Product Testing, Bug Reporting & UAT · SDLC & STLC",
+        "anchor": "solution"
+      }
+    ]
+  },
   "experience": [
     {
       "id": "mepo-pm-intern",
@@ -66,7 +98,7 @@
       "id": "mepo-qa-engineer",
       "title": "Quality Assurance Engineer",
       "company": "Mepo Indonesia",
-      "type": null,
+      "type": "Internship",
       "start": "2025-12",
       "end": "2026-03",
       "location": "East Jakarta, Jakarta · Hybrid",

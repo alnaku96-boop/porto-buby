@@ -23,6 +23,9 @@ const schema = z.object({
   contact: z.object({ email: nullableStr, linkedin: nullableStr }),
   highlights: z.array(z.object({ label: z.string(), detail: z.string(), evidence: z.string() })),
   about: z.array(z.string()),
+  howIWork: z.object({
+    steps: z.array(z.object({ title: z.string(), icon: z.string(), text: z.string(), evidence: z.string(), anchor: z.string() })),
+  }),
   experience: z.array(
     z.object({
       id: z.string(),
@@ -104,7 +107,7 @@ const caseStudyMd = readFileSync(join(root, 'content/case-study-mepo.md'), 'utf8
 export const caseStudyReady = /^status:\s*ready\s*$/m.test(caseStudyMd);
 if (!caseStudyReady) missing.push('content/case-study-mepo.md: status is not "ready" (page not rendered, card shows "Coming soon")');
 
-export const { profile, contact, highlights, experience, skills, certificates } = content;
+export const { profile, contact, highlights, howIWork, experience, skills, certificates } = content;
 export type Experience = (typeof experience)[number];
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

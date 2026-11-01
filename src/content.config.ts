@@ -10,6 +10,8 @@ const caseStudies = defineCollection({
     company: z.string(),
     period: z.string(),
     status: z.enum(['draft', 'ready']),
+    summary: z.string().optional(),
+    tags: z.array(z.string()).default([]),
   }),
 });
 

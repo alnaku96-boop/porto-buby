@@ -1,0 +1,31 @@
+---
+import { howIWork, experience, caseStudyReady } from '../lib/content';
+import Icon from './Icon.astro';
+
+const caseStudy = caseStudyReady ? experience.find((e) => e.caseStudy)?.caseStudy : null;
+---
+<section id="how-i-work" class="band relative overflow-hidden" aria-labelledby="how-title">
+  <div class="glow" aria-hidden="true"></div>
+  <div class="container-page relative">
+    <p class="eyebrow" data-reveal>Process</p>
+    <h2 id="how-title" class="section-title mt-2" data-reveal>How I work</h2>
+    <ol class="steps mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      {howIWork.steps.map((s, i) => (
+        <li class="card flex flex-col" style={`--i: ${i}`} data-tilt data-reveal>
+          <div class="pop flex items-center justify-between">
+            <span class="icon-tile"><Icon name={s.icon} size={22} /></span>
+            <span class="font-mono text-sm text-mute">0{i + 1}</span>
+          </div>
+          <h3 class="card-title pop mt-5">{s.title}</h3>
+          <p class="mt-2 text-body">{s.text}</p>
+          <p class="mt-4 font-mono text-[12px] leading-5 text-mute">{s.evidence}</p>
+          {caseStudy && (
+            <a href={`${caseStudy}#${s.anchor}`} class="link mt-auto inline-flex items-center gap-1 pt-4 text-sm font-semibold" data-event="case_study_open">
+              In the case study <Icon name="arrow" size={14} />
+            </a>
+          )}
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

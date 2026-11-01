@@ -1,9 +1,15 @@
 ---
-import { profile, experience } from '../lib/content';
+import { profile, experience, certificates } from '../lib/content';
+import Icon from './Icon.astro';
 import CvButton from './CvButton.astro';
 
 const initials = profile.name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('');
 const awarded = experience.find((e) => e.award);
+const stats = [
+  { icon: 'briefcase', value: experience.length, label: 'roles' },
+  { icon: 'file', value: certificates.length, label: 'certificates' },
+  ...(awarded ? [{ icon: 'award', value: awarded.award, label: awarded.company }] : []),
+];
 ---
 <section id="top" class="relative overflow-hidden" data-parallax>
   <div class="grid-floor" aria-hidden="true"><div></div></div>
@@ -34,6 +40,14 @@ const awarded = experience.find((e) => e.award);
         <CvButton />
         <a href="#contact" class="btn btn-outline">Contact me</a>
       </div>
+      <ul class="hero-in mt-8 hidden flex-wrap gap-3 sm:flex" style="--i: 5">
+        {stats.map((s) => (
+          <li class="stat">
+            <span class="text-primary"><Icon name={s.icon} size={18} /></span>
+            <span class="text-sm leading-tight"><strong class="font-semibold text-ink-strong">{s.value}</strong> <span class="text-mute">{s.label}</span></span>
+          </li>
+        ))}
+      </ul>
     </div>
   </div>
 </section>

@@ -1,5 +1,8 @@
 ---
 import { skills, resolveEvidence } from '../lib/content';
+import Icon from './Icon.astro';
+
+const ICONS: Record<string, string> = { Product: 'target', Quality: 'shield', Data: 'database', Engineering: 'code', AI: 'spark' };
 ---
 <section id="skills" class="band" aria-labelledby="skills-title">
   <div class="container-page">
@@ -7,7 +10,10 @@ import { skills, resolveEvidence } from '../lib/content';
     <ul class="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       {skills.map((s, i) => (
         <li class="card flex flex-col" style={`--i: ${i % 3}`} data-tilt data-reveal>
-          <h3 class="card-title pop">{s.group}</h3>
+          <div class="pop flex items-center gap-3">
+            <span class="icon-tile"><Icon name={ICONS[s.group] ?? 'layers'} /></span>
+            <h3 class="card-title">{s.group}</h3>
+          </div>
           <ul class="mt-4 flex flex-wrap gap-2">
             {s.items.map((item) => <li class="pill hover:border-primary/50">{item}</li>)}
           </ul>
