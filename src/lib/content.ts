@@ -107,7 +107,8 @@ const caseStudyMd = readFileSync(join(root, 'content/case-study-mepo.md'), 'utf8
 export const caseStudyReady = /^status:\s*ready\s*$/m.test(caseStudyMd);
 if (!caseStudyReady) missing.push('content/case-study-mepo.md: status is not "ready" (page not rendered, card shows "Coming soon")');
 
-export const { profile, contact, highlights, howIWork, experience, skills, certificates } = content;
+export const { profile, contact, highlights, about, howIWork, experience, skills, certificates } = content;
+export const initials = profile.name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('');
 export type Experience = (typeof experience)[number];
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

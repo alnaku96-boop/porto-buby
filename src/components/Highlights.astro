@@ -1,7 +1,8 @@
 ---
 import { Image } from 'astro:assets';
-import { highlights, resolveEvidence, certificates } from '../lib/content';
+import { highlights, resolveEvidence, certificates, about, profile } from '../lib/content';
 import certPreview from '../assets/mepo-certificate-preview.jpg';
+import Icon from './Icon.astro';
 
 // Only visual asset tied to a highlight: the Mepo certificate preview (CLAUDE.md).
 const PREVIEWS: Record<string, { src: typeof certPreview; alt: string }> = {
@@ -10,31 +11,52 @@ const PREVIEWS: Record<string, { src: typeof certPreview; alt: string }> = {
     alt: certificates.find((c) => c.id === 'mepo-pm-intern')?.title ?? '',
   },
 };
+const ICONS: Record<string, string> = { experience: 'briefcase', certificate: 'award', skills: 'layers' };
 ---
 <section id="highlights" class="band" aria-labelledby="highlights-title">
   <div class="container-page">
-    <h2 id="highlights-title" class="section-title" data-reveal>Highlights</h2>
-    <ul class="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-[1fr_1.15fr]">
+    <p class="kicker" data-reveal>At a glance</p>
+    <h2 id="highlights-title" class="section-title mt-3" data-reveal>Highlights</h2>
+    <!-- Bento: featured award tile on the left spanning two rows, the rest flow around it. -->
+    <ul class="mt-8 grid grid-flow-dense gap-4 md:grid-cols-2 lg:grid-cols-3">
       {highlights.map((h, i) => {
         const ev = resolveEvidence(h.evidence);
         const preview = PREVIEWS[h.evidence];
         return (
-          <li class:list={['card flex flex-col', preview && 'card-featured md:row-span-2']} style={`--i: ${i}`} data-tilt data-reveal>
-            {preview && (
+          <li class:list={['card flex flex-col', preview && 'card-featured md:col-start-1 md:row-span-2 md:row-start-1']} style={`--i: ${i}`} data-tilt data-reveal>
+            {preview ? (
               <div class="mb-5 rounded-[8px] bg-canvas-soft p-3">
-                <Image src={preview.src} alt={preview.alt} widths={[480, 960]} sizes="(min-width: 1024px) 620px, (min-width: 768px) 50vw, 100vw" class="cert-3d block w-full rounded-[6px]" />
+                <Image src={preview.src} alt={preview.alt} widths={[480, 960]} sizes="(min-width: 1024px) 420px, (min-width: 768px) 50vw, 100vw" class="cert-3d block w-full rounded-[6px]" />
               </div>
+            ) : (
+              <span class="icon-tile pop mb-4"><Icon name={ICONS[h.evidence.split(':')[0]] ?? 'spark'} /></span>
             )}
             <h3 class="card-title pop">{h.label}</h3>
             <p class="mt-2 text-body">{h.detail}</p>
             {ev && (
-              <a href={ev.href} class="link mt-auto pt-4 text-sm font-semibold" {...(ev.external ? { target: '_blank', rel: 'noopener' } : {})}>
-                {ev.external ? 'View certificate (PDF)' : 'See evidence'}<span class="sr-only">: {ev.label}</span>
+              <a href={ev.href} class="link mt-auto inline-flex items-center gap-1 pt-4 text-sm font-semibold" {...(ev.external ? { target: '_blank', rel: 'noopener' } : {})}>
+                {ev.external ? 'View certificate (PDF)' : 'See evidence'} <Icon name="arrow" size={14} /><span class="sr-only">: {ev.label}</span>
               </a>
             )}
           </li>
         );
       })}
+      {about.length > 0 && (
+        <li id="about" class="card flex flex-col md:col-span-2" style={`--i: ${highlights.length}`} data-reveal>
+          <p class="eyebrow !text-xs">About</p>
+          <div class="prose-width mt-3 space-y-3 text-body">
+            {about.map((p) => <p>{p}</p>)}
+          </div>
+          {(profile.education || profile.location) && (
+            <ul class="mt-auto flex flex-wrap gap-2 pt-5">
+              {profile.education && (
+                <li class="pill gap-2"><Icon name="cap" size={16} class="text-primary" />{profile.education.program}, {profile.education.school}</li>
+              )}
+              {profile.location && <li class="pill gap-2"><Icon name="pin" size={16} class="text-primary" />{profile.location}</li>}
+            </ul>
+          )}
+        </li>
+      )}
     </ul>
   </div>
 </section>

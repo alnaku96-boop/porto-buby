@@ -13,7 +13,8 @@ const groups = experience.reduce<{ company: string; roles: Experience[] }[]>((ac
 ---
 <section id="experience" class="band" aria-labelledby="experience-title">
   <div class="container-page">
-    <h2 id="experience-title" class="section-title" data-reveal>Experience</h2>
+    <p class="kicker" data-reveal>Career</p>
+    <h2 id="experience-title" class="section-title mt-3" data-reveal>Experience</h2>
     <ol class="mt-8 grid gap-12">
       {groups.map((g, gi) => {
         const legal = g.roles.find((r) => r.legalEntity)?.legalEntity;

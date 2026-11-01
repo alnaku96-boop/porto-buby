@@ -91,6 +91,15 @@
 .certs:has([value='AI']:checked) [data-group]:not([data-group='AI']),
 .certs:has([value='Technical']:checked) [data-group]:not([data-group='Technical']) { display: none; }
 
+/* Hero: accent glow behind the photo, name fades white to soft green */
+.glow.glow-hero { top: -120px; left: 72%; width: 760px; height: 760px; }
+@media (max-width: 767px) { .glow.glow-hero { left: 50%; top: -320px; } }
+.hero-name { background: linear-gradient(100deg, var(--ink-strong) 55%, var(--primary-soft)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* Section kicker: green index + label above each section title */
+.kicker { @apply flex items-center gap-3 text-sm font-semibold uppercase text-mute; letter-spacing: 2.52px; }
+.kicker::before { content: ''; width: 24px; height: 1px; background: var(--primary); }
+
 /* Soft accent glow behind a section */
 .glow { position: absolute; width: 640px; height: 640px; left: 50%; top: -280px; translate: -50% 0; pointer-events: none;
   background: radial-gradient(closest-side, rgb(0 217 146 / 0.1), transparent); }
@@ -133,10 +142,9 @@ html.js [data-reveal]:not(.is-in) { opacity: 0; translate: 0 32px; scale: 0.97; 
 .grid-floor > div {
   position: absolute; inset: -60% 0 -60px; transform-origin: 50% 100%;
   background-image: linear-gradient(var(--hairline) 1px, transparent 1px), linear-gradient(90deg, var(--hairline) 1px, transparent 1px);
-  background-size: 56px 56px; animation: floor 5s linear infinite;
+  background-size: 56px 56px; transform: rotateX(70deg);
 }
 @media (min-width: 768px) { .grid-floor { inset: 30% -30% 0; } }
-@keyframes floor { from { transform: rotateX(70deg) translateY(0); } to { transform: rotateX(70deg) translateY(56px); } }
 
 /* Certificate as a physical object: tilted at rest, flat on hover */
 .cert-3d { transform: perspective(900px) rotateX(10deg) rotateY(-14deg) scale(0.93); transition: transform 0.7s var(--ease); }

@@ -1,21 +1,40 @@
 ---
 import { contact, profile } from '../lib/content';
 import CvButton from './CvButton.astro';
+import Icon from './Icon.astro';
 ---
-<section id="contact" class="band !border-t-2 !border-solid !border-primary" aria-labelledby="contact-title">
-  <div class="container-page grid gap-8 md:grid-cols-[1fr_auto] md:items-end" data-reveal>
-    <div>
-      <h2 id="contact-title" class="section-title">Contact</h2>
-      <ul class="mt-6 grid gap-3 text-lg">
-        {contact.email && (
-          <li><a href={`mailto:${contact.email}`} class="link break-all font-semibold" data-event="contact_email">{contact.email}</a></li>
-        )}
-        {contact.linkedin && (
-          <li><a href={contact.linkedin} target="_blank" rel="noopener" class="link font-semibold" data-event="contact_linkedin">LinkedIn</a></li>
-        )}
-      </ul>
+<section id="contact" class="band relative overflow-hidden" aria-labelledby="contact-title">
+  <div class="container-page relative">
+    <div class="card card-featured relative overflow-hidden p-8 md:p-14" data-reveal>
+      <div class="glow !top-[-360px]" aria-hidden="true"></div>
+      <div class="relative grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
+        <div>
+          <p class="kicker">Get in touch</p>
+          <h2 id="contact-title" class="section-title mt-3 md:!text-[44px]">Let’s talk.</h2>
+          <p class="prose-width mt-3 text-lg text-body">Reach out by email or LinkedIn, or download the CV.</p>
+          <ul class="mt-7 flex flex-wrap gap-3">
+            {contact.email && (
+              <li>
+                <a href={`mailto:${contact.email}`} class="btn btn-outline break-all" data-event="contact_email">
+                  <Icon name="mail" size={18} class="shrink-0 text-primary" />{contact.email}
+                </a>
+              </li>
+            )}
+            {contact.linkedin && (
+              <li>
+                <a href={contact.linkedin} target="_blank" rel="noopener" class="btn btn-outline" data-event="contact_linkedin">
+                  <Icon name="linkedin" size={18} class="text-primary" />LinkedIn
+                </a>
+              </li>
+            )}
+          </ul>
+        </div>
+        <CvButton />
+      </div>
     </div>
-    <CvButton />
   </div>
-  <p class="container-page mt-16 text-sm text-mute">© {new Date().getFullYear()} {profile.name}</p>
+  <footer class="container-page mt-14 flex items-center justify-between gap-4 text-sm text-mute">
+    <p>© {new Date().getFullYear()} {profile.name}</p>
+    <a href="#top" class="inline-flex items-center gap-1.5 no-underline transition-colors hover:text-ink-strong">Back to top <Icon name="arrow-up" size={14} /></a>
+  </footer>
 </section>

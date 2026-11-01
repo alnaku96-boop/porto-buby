@@ -6,7 +6,8 @@ const ICONS: Record<string, string> = { Product: 'target', Quality: 'shield', Da
 ---
 <section id="skills" class="band" aria-labelledby="skills-title">
   <div class="container-page">
-    <h2 id="skills-title" class="section-title" data-reveal>Skills</h2>
+    <p class="kicker" data-reveal>Toolkit</p>
+    <h2 id="skills-title" class="section-title mt-3" data-reveal>Skills</h2>
     <ul class="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       {skills.map((s, i) => (
         <li class="card flex flex-col" style={`--i: ${i % 3}`} data-tilt data-reveal>

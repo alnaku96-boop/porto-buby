@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import CvButton from '../components/CvButton.astro';
+import { profile } from '../lib/content';
+---
+<Base title={`Page not found — ${profile.name}`}>
+  <section class="relative overflow-hidden">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="container-page relative flex min-h-[calc(100svh-3.5rem)] flex-col items-start justify-center py-16">
+      <p class="font-mono text-sm text-primary">404</p>
+      <h1 class="mt-3 text-[34px] leading-[1.1] tracking-[-0.65px] md:text-[52px]">This page doesn’t exist.</h1>
+      <p class="prose-width mt-4 text-lg text-body">The link may be outdated. Everything about {profile.name} is on the home page.</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="/" class="btn btn-primary">Back to home</a>
+        <CvButton variant="outline" />
+      </div>
+    </div>
+  </section>
+</Base>

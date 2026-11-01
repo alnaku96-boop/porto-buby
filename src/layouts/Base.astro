@@ -1,7 +1,8 @@
 ---
 import Analytics from '@vercel/analytics/astro';
 import '../styles/global.css';
-import { profile } from '../lib/content';
+import { existsSync } from 'node:fs';
+import { profile, contact, initials } from '../lib/content';
 import Nav from '../components/Nav.astro';
 
 interface Props {
@@ -10,7 +11,25 @@ interface Props {
 }
 const { title = `${profile.name} — ${profile.role}`, description = profile.valueProposition } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const ogImage = profile.photo ? new URL(profile.photo, Astro.site).href : null;
+// public/og.png is generated from content.json by `npm run og`; fall back to the photo.
+const hasOg = existsSync('public/og.png');
+const ogImage = hasOg ? new URL('/og.png', Astro.site).href : profile.photo ? new URL(profile.photo, Astro.site).href : null;
+const favicon = `data:image/svg+xml,${encodeURIComponent(
+  `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='#101010'/><rect x='1' y='1' width='30' height='30' rx='7' fill='none' stroke='#00d992' stroke-width='2'/><text x='16' y='21.5' text-anchor='middle' font-family='Arial,sans-serif' font-size='14' font-weight='700' fill='#00d992'>${initials}</text></svg>`,
+)}`;
+const site = Astro.site ? new URL('/', Astro.site).href : undefined;
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: profile.name,
+  jobTitle: profile.role,
+  description: profile.valueProposition,
+  url: site,
+  image: profile.photo && site ? new URL(profile.photo, site).href : undefined,
+  sameAs: contact.linkedin ? [contact.linkedin] : undefined,
+  alumniOf: profile.education ? { '@type': 'CollegeOrUniversity', name: profile.education.school } : undefined,
+  address: profile.location ? { '@type': 'PostalAddress', addressLocality: profile.location } : undefined,
+};
 ---
 <!doctype html>
 <html lang="en">
@@ -27,8 +46,12 @@ const ogImage = profile.photo ? new URL(profile.photo, Astro.site).href : null;
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     {ogImage && <meta property="og:image" content={ogImage} />}
-    <meta name="twitter:card" content="summary" />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='4' y='4' width='24' height='24' rx='6' fill='%2300d992'/></svg>" />
+    {hasOg && <meta property="og:image:width" content="1200" />}
+    {hasOg && <meta property="og:image:height" content="630" />}
+    {ogImage && <meta property="og:image:alt" content={`${profile.name} — ${profile.role}`} />}
+    <meta name="twitter:card" content={hasOg ? 'summary_large_image' : 'summary'} />
+    <link rel="icon" href={favicon} />
+    <script type="application/ld+json" set:html={JSON.stringify(person)} />
   </head>
   <body>
     <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[500] btn btn-primary">Skip to content</a>
@@ -76,7 +99,7 @@ const ogImage = profile.photo ? new URL(profile.photo, Astro.site).href : null;
 
       // 3D tilt + spotlight on cards and hero parallax: mouse/trackpad only.
       if (!reduceMotion && matchMedia('(hover: hover) and (pointer: fine)').matches) {
-        const MAX_DEG = 8;
+        const MAX_DEG = 4;
         for (const el of document.querySelectorAll<HTMLElement>('[data-tilt]')) {
           el.addEventListener('pointermove', (e) => {
             const r = el.getBoundingClientRect();
